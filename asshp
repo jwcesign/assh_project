@@ -1,0 +1,44 @@
+#!/usr/local/bin/python
+
+import os,sys
+import json
+
+
+def save_info(ip,port,user,passwd,des):
+    f = open("/Users/cesign/assh/data.json",'r')
+    info = dict(ip=ip,port=port,user=user,passwd=passwd)
+    try:
+        data = json.loads(f.read())
+    except:
+        data = {}
+    data[des] = info
+    json_str = json.dumps(data)
+    f.close()
+    f = open("/Users/cesign/assh/data.json",'w')
+    f.write(json_str)
+    f.close()
+
+def get_info(des):
+    f = open("/Users/cesign/assh/data.json",'r')
+    try:
+        data = json.loads(f.read())
+    except:
+        return False
+    ip = data[des]["ip"]
+    port = data[des]["port"]
+    user = data[des]["user"]
+    passwd = data[des]["passwd"]
+    return ip,port,user,passwd
+
+behavoir = sys.argv[1]
+if behavoir == "ad":
+    ip = sys.argv[2]
+    port = sys.argv[3]
+    user = sys.argv[4]
+    passwd = sys.argv[5]
+    des = sys.argv[6]
+    save_info(ip,port,user,passwd,des)
+if behavoir == "sr":
+    des = sys.argv[2]
+    ip,port,user,passwd = get_info(des)
+    print ip,port,user,passwd
