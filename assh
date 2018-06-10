@@ -43,7 +43,7 @@ if [[ $ip != "" ]]; then
 else
   if [[ $des != "" ]]; then
     #调用python脚本获取信息登录
-    da=`asshp.py sr $des`
+    da=`asshp sr $des`
     ip=`echo $da | awk '{print $1}'`
     port=`echo $da | awk '{print $2}'`
     pass=`echo $da | awk '{print $3}'`
