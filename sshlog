@@ -7,9 +7,9 @@ set passwd [lindex $argv 3]
 spawn ssh -p $port $user@$ip
 expect {
   "yes/no"
-  {send "yes\r"; exp_continue;set timeout 0}
+  {send "yes\r"; exp_continue;}
   "password:"
-  {send "$passwd\r";}
+  {send "$passwd\r";set timeout 0}
 }
 expect eof
 interact
